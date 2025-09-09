@@ -57,6 +57,39 @@ services:
     volumes:
       - npm-db:/var/lib/postgresql/data
 
+  # *****************************************************************************
+  # cloudflare-ddns
+  #   Cloudflare DDNS keeps your Cloudflare DNS records updated with your 
+  #   current public IP address. This is especially useful if your ISP 
+  #   provides a dynamic IP, ensuring that your domain name always points 
+  #   to the right address. By automatically updating DNS records, it 
+  #   allows you to host websites, applications, or remote services at home 
+  #   without worrying about manual DNS changes when your IP changes.
+  #
+  #   NOTE: Default update period is once every 5 minutes.  To change this and
+  #         explore other configuration options, visit: https://github.com/favonia/cloudflare-ddns
+  #
+  # *****************************************************************************
+  cloudflare-ddns:
+    image: favonia/cloudflare-ddns:${CF_DDNS_VERSION_TAG}
+    container_name: cloudflare-ddns
+    network_mode: host
+    restart: always
+    # The user and group IDs to run as
+    user: "${PUID:-1000}:${GUID:-1000}"
+    # This container's filesystem can be read-only
+    read_only: true
+    # Run this container with bare minimum capabilities
+    cap_drop: [all]
+    # Restrict superuser privileges
+    security_opt: [no-new-privileges:true]
+    environment:
+      - TZ=${TZ_ID}
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - DOMAINS=${CF_DDNS_DOMAIN_LIST}
+        # Disable IPv6
+      - IP6_PROVIDER=none
+
 volumes:
   npm-db:
     name: npm-db
