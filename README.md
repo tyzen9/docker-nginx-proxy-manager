@@ -2,7 +2,7 @@
 This is an all-in-one Docker stack for running NGINX and common supporting services. It provides a lightweight, high-performance web server and reverse proxy, with built-in support for managing SSL certificates, hosting multiple sites, and serving static or dynamic content. The stack also includes options for log monitoring, performance metrics, and configuration management, making it easy to deploy, secure, and maintain modern web applications and services.
 
 <p align="center">
-<img src="docs/images/npm_logo.png" height="35">
+<img src="docs/images/npm_logo.png" height="50">
 </p> 
 
 ## Prerequisites
