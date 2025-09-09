@@ -2,7 +2,7 @@
 This is an all-in-one Docker stack for running NGINX and common supporting services. It provides a lightweight, high-performance web server and reverse proxy, with built-in support for managing SSL certificates, hosting multiple sites, and serving static or dynamic content. The stack also includes options for log monitoring, performance metrics, and configuration management, making it easy to deploy, secure, and maintain modern web applications and services.
 
 <p align="center">
-<img src="docs/images/npm_logo.png" height="50">
+<img src="docs/images/npm_logo.png" height="50">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <img src="docs/images/mysql.png" height="60">
 </p> 
 
 ## Prerequisites
@@ -20,6 +20,7 @@ The docker-ngnix-proxy-manager stack contains everything you need for a stable N
 ## Getting Started
 Deploy the stack into your Docker environment. This can be done any number of ways, to get started quickly log onto your Docker host system, and clone this repository: `git clone https://github.com/tyzen9/docker-nginx-proxy-manager.git`
 
+1. Make a copy of `sample.env`, and name it `.env`
 1. Set the configuration options as desired in the `compose.yaml` and `.env` files.
 1. Navigate to the project's root directory and run the following command:
 
