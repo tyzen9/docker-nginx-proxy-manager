@@ -96,6 +96,6 @@ services:
       - IP6_PROVIDER=none
 
 volumes:
+  data:
+  letsencrypt:
   postgres:
-  npm-data:
-  npm-letsencrypt:
