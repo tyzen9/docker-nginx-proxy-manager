@@ -26,7 +26,7 @@ services:
       # - '21:21' # FTP
     environment:
       # Postgres parameters:
-      - DB_POSTGRES_HOST=postgres
+      - DB_POSTGRES_HOST=postgres-npm
       - DB_POSTGRES_PORT=${POSTGRES_PORT:-5432}
       - DB_POSTGRES_USER=${POSTGRES_USER:-npm}
       - DB_POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
@@ -53,7 +53,7 @@ services:
   # *****************************************************************************
   postgres:
     image: postgres:${POSTGRES_VERSION_TAG}
-    container_name: postgres
+    container_name: postgres-npm
     restart: unless-stopped
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-npm}
