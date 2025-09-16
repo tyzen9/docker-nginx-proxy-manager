@@ -1,15 +1,19 @@
+name: npm
+
 services:
   # *****************************************************************************
-  # nginx
-  #   NGINX is a lightweight, high-performance web server and reverse proxy 
-  #   designed for serving static content, handling SSL/TLS termination, and 
-  #   efficiently routing traffic to backend applications. It can host multiple 
-  #   sites, act as a load balancer, or serve as a secure entry point for 
-  #   Dockerized services. Known for speed and scalability, NGINX is widely 
-  #   used in modern web deployments to deliver reliable and secure content.
+  # nginx-proxy-manager
+  #   Nginx Proxy Manager (NPM) is a web-based interface for managing reverse 
+  #   proxies, SSL certificates, and access control. It simplifies the process 
+  #   of routing internet traffic to services running in your Docker stack by 
+  #   providing an easy-to-use dashboard. Built on top of NGINX, it enables 
+  #   you to configure domain names, enable HTTPS with Let's Encrypt, and set 
+  #   up authentication without manually editing NGINX configuration files. 
+  #   This service will act as the front door for your applications, securely 
+  #   handling incoming requests and directing them to the right containers. 
   #
   # *****************************************************************************
-  nginx:
+  npm:
     image: jc21/nginx-proxy-manager:${NPM_VERSION_TAG}
     restart: unless-stopped
     container_name: nginx-proxy-manager
@@ -22,7 +26,7 @@ services:
       # - '21:21' # FTP
     environment:
       # Postgres parameters:
-      - DB_POSTGRES_HOST=mysql
+      - DB_POSTGRES_HOST=postgres
       - DB_POSTGRES_PORT=${POSTGRES_PORT:-5432}
       - DB_POSTGRES_USER=${POSTGRES_USER:-npm}
       - DB_POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
@@ -30,32 +34,33 @@ services:
       # Uncomment this if IPv6 is not enabled on your host
       - DISABLE_IPV6=true
     volumes:
-      - npm-data:/data
-      - npm-letsencrypt:/etc/letsencrypt
+      - data:/data
+      - letsencrypt:/etc/letsencrypt
     depends_on:
-      - mysql
+      - postgres
 
   # *****************************************************************************
-  # mysql
-  #   MySQL is a widely used open-source relational database management system. 
-  #   It stores and organizes structured data, making it easy for applications 
-  #   like websites, APIs, and backend services to manage information reliably. 
-  #   Often paired with NGINX and other web technologies, MySQL provides the 
-  #   persistence layer for dynamic content, user authentication, and analytics. 
-  #   This service will create a database instance that can be accessed by 
-  #   other containers in the stack.
+  # postgres
+  #   PostgreSQL is a powerful open-source relational database system known for 
+  #   its reliability, performance, and advanced features. It serves as the 
+  #   persistence layer for many modern applications, storing structured data 
+  #   such as users, credentials, and configuration settings. When paired with 
+  #   NGINX Proxy Manager, PostgreSQL provides the backend database needed to 
+  #   manage proxy hosts, SSL certificates, access lists, and application data. 
+  #   This service will create a dedicated database instance accessible by 
+  #   Nginx Proxy Manager and other containers in the stack.
   #
   # *****************************************************************************
-  mysql:
+  postgres:
     image: postgres:${POSTGRES_VERSION_TAG}
-    container_name: nginx-proxy-manager-db
+    container_name: postgres
     restart: unless-stopped
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-npm}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
       - POSTGRES_DB=${POSTGRES_DATABASE:-npm_db}
     volumes:
-      - npm-db:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
 
   # *****************************************************************************
   # cloudflare-ddns
@@ -91,9 +96,6 @@ services:
       - IP6_PROVIDER=none
 
 volumes:
-  npm-db:
-    name: npm-db
+  postgres:
   npm-data:
-    name: npm-data
   npm-letsencrypt:
-    name: npm-letsencrypt   
