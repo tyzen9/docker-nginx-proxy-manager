@@ -24,7 +24,7 @@ The docker-ngnix-proxy-manager stack contains everything you need for a stable N
 > `Cloudflare DDNS` requires the hosted domains' DNS records to be managed at Cloudflare.  If this is not needed, then just comment the service out from the compose.yml file
 
 ## Getting Started
-Deploy the stack into your Docker environment. This can be done any number of ways, to get started quickly log onto your Docker host system, and clone this repository: `git clone https://github.com/tyzen9/docker-nginx-proxy-manager.git`
+Deploy the stack into your Docker environment. This can be done by cloning this repository, by downloading the most recent release, or just by simply copying the content of the `compose.yml` file and `sample.env` above. 
 
 1. Make a copy of `sample.env`, and name it `.env`
 1. Set the configuration options as desired in the `compose.yaml` and `.env` files.
@@ -36,7 +36,39 @@ docker compose up
 
 If everything works as expected, you should be able to access Nginx at http://hostname:81
 
-## Cloudflare DDNS
+# Nginx Proxy Server
+Getting started with Nginx Proxy Server it very straight forward. The following are just the basics to get started.
+
+### Log in with the default credentials:
+1. Open browser: http://hostname:81
+   - **Email:** `admin@example.com`
+   - **Password:** `changeme`
+1. Immediately change the default login credentials for security.
+
+### Add a Proxy Host
+1. Go to **Hosts → Proxy Hosts → Add Proxy Host** in the Nginx Proxy Manager dashboard.
+2. Fill in the required fields:
+   - **Domain Names:** e.g., `service.mydomain.com`
+   - **Scheme:** `http` or `https` (depending on your backend service)
+   - **Forward Hostname / IP:** IP address or host name of your service (e.g., `myapp.local` or `192.168.1.100`)
+   - **Forward Port:** e.g., `8080`
+3. Optional settings:
+   - Enable **Block Common Exploits**
+   - Enable **Websockets Support** if needed
+   - Enable **Cache Assets** if appropriate
+
+### Configure SSL
+1. While adding or editing a proxy host, go to the **SSL** tab.
+2. Choose **Request a new SSL Certificate**.
+3. Select **Let’s Encrypt** and provide your email.
+4. Optional but recommended:
+   - Enable **Force SSL**
+   - Enable **HTTP/2 Support**
+5. Save the configuration.
+
+These are the basics of using Nginx Proxy Manager. Much more detail can be found in the [Nginx Proxy Manager user guide](https://nginxproxymanager.com/guide/).
+
+# Cloudflare DDNS
 
 In Cloudflare there isn’t a direct “DDNS” settings page — instead, you configure **DNS records** (A/AAAA) and then use an **API token** so the `Cloudflare DDNS` updater can update those records automatically.
 Here’s how to set it up step by step:
