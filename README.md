@@ -4,7 +4,7 @@ This is an all-in-one Docker stack for running NGINX and common supporting servi
 In addition, this stack contains `Cloudflare DDNS` which keeps your Cloudflare DNS records updated with your current public IP address. This is especially useful if your ISP provides a dynamic IP, ensuring that your domain name always points to the right address. By automatically updating DNS records, it allows you to host websites, applications, or remote services at home without worrying about manual DNS changes when your IP changes.
 
 <p align="center">
-<img src="docs/images/npm_logo.png" height="50">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <img src="docs/images/mysql.png" height="60">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <img src="docs/images/cloudflare_ddns.png" height="50">
+<img src="docs/images/npm_logo.png" height="50">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <img src="docs/images/postgres-logo.png" height="60">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <img src="docs/images/cloudflare_ddns.png" height="50">
 </p> 
 
 ## Prerequisites
@@ -17,7 +17,7 @@ This `docker-compose` implementation is configured using the `environment` secti
 The docker-ngnix-proxy-manager stack contains everything you need for a stable Nginx proxy. Here is what this project has to offer:
 
 1. [Nginx Proxy Manager](https://hub.docker.com/r/jc21/nginx-proxy-manager)
-1. [MySql](https://hub.docker.com/_/mysql)
+1. [Postgres](https://hub.docker.com/_/postgres/)
 1. [Cloudflare DDNS](https://hub.docker.com/r/favonia/cloudflare-ddns)
 
 > [!Note]
