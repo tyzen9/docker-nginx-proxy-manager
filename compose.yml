@@ -14,7 +14,7 @@ services:
   #
   # *****************************************************************************
   npm:
-    image: jc21/nginx-proxy-manager:${NPM_VERSION_TAG}
+    image: jc21/nginx-proxy-manager:2.13.4
     restart: unless-stopped
     container_name: nginx-proxy-manager
     ports:
@@ -38,6 +38,10 @@ services:
       - letsencrypt:/etc/letsencrypt
     depends_on:
       - postgres
+    labels:
+      # What's up docker labels (https://getwud.github.io/wud/#/)
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - 'wud.link.template=https://www.home-assistant.io/blog/categories/release-notes'
 
   # *****************************************************************************
   # postgres
@@ -52,7 +56,7 @@ services:
   #
   # *****************************************************************************
   postgres:
-    image: postgres:${POSTGRES_VERSION_TAG}
+    image: postgres:17
     container_name: postgres-npm
     restart: unless-stopped
     environment:
@@ -61,6 +65,13 @@ services:
       - POSTGRES_DB=${POSTGRES_DATABASE:-npm_db}
     volumes:
       - postgres:/var/lib/postgresql/data
+    labels:
+      # What's up docker labels (https://getwud.github.io/wud/#/)
+      # Show all version 17 updates
+      - 'wud.tag.include=^17(\.\d+)*$'
+      # Show all version updates
+      # - 'wud.tag.include=^\d+\.\d+$$'
+      - 'wud.link.template=https://www.postgresql.org/docs/release/'
 
   # *****************************************************************************
   # cloudflare-ddns
@@ -76,7 +87,7 @@ services:
   #
   # *****************************************************************************
   cloudflare-ddns:
-    image: favonia/cloudflare-ddns:${CF_DDNS_VERSION_TAG}
+    image: favonia/cloudflare-ddns:1.15.1
     container_name: cloudflare-ddns
     network_mode: host
     restart: always
@@ -94,6 +105,10 @@ services:
       - DOMAINS=${CF_DDNS_DOMAIN_LIST}
         # Disable IPv6
       - IP6_PROVIDER=none
+    labels:
+      # What's up docker labels (https://getwud.github.io/wud/#/)
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - 'wud.link.template=https://github.com/favonia/cloudflare-ddns/releases'
 
 volumes:
   data:
