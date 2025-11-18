@@ -40,8 +40,8 @@ services:
       - postgres
     labels:
       # What's up docker labels (https://getwud.github.io/wud/#/)
-      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
-      - 'wud.link.template=https://www.home-assistant.io/blog/categories/release-notes'
+      - 'wud.tag.include=^\d+\.\d+\.\d+$'
+      - 'wud.link.template=https://github.com/NginxProxyManager/nginx-proxy-manager/releases'
 
   # *****************************************************************************
   # postgres
@@ -70,7 +70,7 @@ services:
       # Show all version 17 updates
       - 'wud.tag.include=^17(\.\d+)*$'
       # Show all version updates
-      # - 'wud.tag.include=^\d+\.\d+$$'
+      # - 'wud.tag.include=^\d+\.\d+$'
       - 'wud.link.template=https://www.postgresql.org/docs/release/'
 
   # *****************************************************************************
@@ -107,7 +107,7 @@ services:
       - IP6_PROVIDER=none
     labels:
       # What's up docker labels (https://getwud.github.io/wud/#/)
-      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - 'wud.tag.include=^\d+\.\d+\.\d+$'
       - 'wud.link.template=https://github.com/favonia/cloudflare-ddns/releases'
 
 volumes:
