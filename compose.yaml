@@ -23,6 +23,7 @@ services:
       # Add any other Stream port you want to expose
       # - '21:21' # FTP
     environment:
+      - TZ=${TZ_ID:-America/New_York}
       # Postgres parameters:
       - DB_POSTGRES_HOST=postgres-npm
       - DB_POSTGRES_PORT=${POSTGRES_PORT:-5432}
@@ -60,6 +61,7 @@ services:
     container_name: postgres-npm
     restart: unless-stopped
     environment:
+      - TZ=${TZ_ID:-America/New_York}
       - POSTGRES_USER=${POSTGRES_USER:-npm}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
       - POSTGRES_DB=${POSTGRES_DATABASE:-npm_db}
@@ -100,7 +102,7 @@ services:
     # Restrict superuser privileges
     security_opt: [no-new-privileges:true]
     environment:
-      - TZ=${TZ_ID}
+      - TZ=${TZ_ID:-America/New_York}
       - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
       - DOMAINS=${CF_DDNS_DOMAIN_LIST}
         # Disable IPv6
