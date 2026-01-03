@@ -113,7 +113,7 @@ services:
       - 'wud.link.template=https://github.com/favonia/cloudflare-ddns/releases'
 
   # *********************************************************************************
-  # volume-backup
+  # docker-volume-backup
   #   Automated daily backup of Docker named volumes using offen/docker-volume-backup.
   #   This lightweight service runs in the background, creates a single compressed 
   #   archive containing all specified volumes, and automatically prunes old backups 
